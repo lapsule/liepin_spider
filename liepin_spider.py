@@ -1,5 +1,6 @@
 #-*- coding=utf-8 -*-
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -32,9 +33,13 @@ class Company:
 
 def job_spider(url, key, companys):
     #init browser
-    chromedriver = '/Users/zhengdf/wkdir/python3/build/mac/bin/chromedriver'
+    chromedriver = '/usr/bin/chromedriver'
     os.environ["webdriver.chrome.driver"] = chromedriver
-    driver = webdriver.Chrome(chromedriver)    
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.get(url + key)
     target_path = '//*[@id="sojob"]/div[2]/div/div[1]/div[1]/ul/li'
     wait_second = 10    
